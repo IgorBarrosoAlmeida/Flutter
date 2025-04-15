@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_basico/pages/home_page.dart';
+import 'package:flutter_basico/pages/to_do_list.dart';
 
 main() {
   runApp(MyApp());
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           onSurface: Colors.black,
         ),
       ),
-      home: HomePage(),
+      home: ToDoList(),
     );
   }
 }
