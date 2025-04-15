@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_basico/pages/to_do_list.dart';
+import 'package:flutter_basico/pages/page_one.dart';
+import 'package:flutter_basico/pages/page_two.dart';
 
 main() {
   runApp(MyApp());
@@ -18,14 +19,18 @@ class MyApp extends StatelessWidget {
           primary: Colors.green,
           onPrimary: Colors.white,
           secondary: Colors.blue,
-          onSecondary: Colors.red,
+          onSecondary: Colors.white,
           error: Colors.red,
-          onError: Colors.red,
+          onError: Colors.white,
           surface: Colors.white,
           onSurface: Colors.black,
         ),
       ),
-      home: ToDoList(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const PageOne(),
+        '/PageTwo': (context) => const PageTwo(),
+      },
     );
   }
 }
