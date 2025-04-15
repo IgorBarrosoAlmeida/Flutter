@@ -186,7 +186,6 @@ class PagamentoComBoleto implements Pagamento {
 
 // ------------- Future, async e await -------------
 void aula08() async {
-  String nome2 = "Igor";
   Future<String> cepFuture = getCepByName("Rua JK");
   // cepFuture.then((result) => print(result));
   String cep = await cepFuture; // espera o cepFuture ter um valor
