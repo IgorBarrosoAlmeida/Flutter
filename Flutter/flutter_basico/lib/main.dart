@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basico/pages/page_one.dart';
-import 'package:flutter_basico/pages/page_two.dart';
 
 main() {
   runApp(MyApp());
@@ -26,11 +25,7 @@ class MyApp extends StatelessWidget {
           onSurface: Colors.black,
         ),
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const PageOne(),
-        '/PageTwo': (context) => const PageTwo(),
-      },
+      home: PageOne(),
     );
   }
 }

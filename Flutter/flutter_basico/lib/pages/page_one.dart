@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_basico/widgets/custom_button_widget.dart';
 
 class PageOne extends StatelessWidget {
   const PageOne({super.key});
@@ -7,18 +8,10 @@ class PageOne extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Theme.of(context).colorScheme.primary,
-          ),
-          onPressed: () {
-            Navigator.of(context).pushNamed('/PageTwo', arguments: 'Test');
-            //.then((value) => var valor = value);
-          },
-          child: Text(
-            "Ir para a segunda page",
-            style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
-          ),
+        child: CustomButtonWidget(
+          onPressed: () {},
+          title: "Button",
+          isDisable: false,
         ),
       ),
     );
