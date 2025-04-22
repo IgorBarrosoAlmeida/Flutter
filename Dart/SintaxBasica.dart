@@ -22,7 +22,7 @@ void main() {
 void aula01() {
   String nome = "Igor Barroso";
   int idade = 19;
-  bool ehMaiorDeIdade = true;
+  //bool ehMaiorDeIdade = true;
   List<String> familia = [
     "Ana Lucia",
     "Frederico",
@@ -32,7 +32,7 @@ void aula01() {
 
   print(nome);
   print(idade);
-  print(ehMaiorDeIdade ? "É maior de idade" : "Não é maior de idade");
+  //print(ehMaiorDeIdade ? "É maior de idade" : "Não é maior de idade");
 
   for (int i = 0; i < familia.length; i++) {
     print(familia[i]);
@@ -54,13 +54,13 @@ void aula02() {
 
 // ------------- IF e SWITCH -------------
 void aula03() {
-  bool seguirEmFrente = true;
+  /*bool seguirEmFrente = true;
 
   if (seguirEmFrente) {
     print("Andar");
   } else {
     print("Parar");
-  }
+  }*/
 
   int valor = 2;
 

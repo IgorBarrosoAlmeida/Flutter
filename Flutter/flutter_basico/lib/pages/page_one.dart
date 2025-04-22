@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_basico/pages/page_two.dart';
 
 class PageOne extends StatelessWidget {
   const PageOne({super.key});
@@ -13,9 +12,8 @@ class PageOne extends StatelessWidget {
             backgroundColor: Theme.of(context).colorScheme.primary,
           ),
           onPressed: () {
-            Navigator.of(context)
-                .pushNamed('/PageTwo', arguments: 'Test')
-                .then((value) => print(value));
+            Navigator.of(context).pushNamed('/PageTwo', arguments: 'Test');
+            //.then((value) => var valor = value);
           },
           child: Text(
             "Ir para a segunda page",
