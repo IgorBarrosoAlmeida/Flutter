@@ -13,16 +13,19 @@ class PageOne extends StatefulWidget {
 
 class _PageOneState extends State<PageOne> {
   ValueNotifier<List<Post>> posts = ValueNotifier<List<Post>>([]);
+  ValueNotifier<bool> loading = ValueNotifier<bool>(false);
 
   callAPI() async {
     var client = http.Client();
     try {
+      loading.value = true;
       var response = await client.get(
         Uri.parse("https://jsonplaceholder.typicode.com/posts"),
       );
       var decodedResponse = jsonDecode(response.body) as List;
       posts.value = decodedResponse.map((e) => Post.fromJson(e)).toList();
     } finally {
+      loading.value = false;
       client.close();
     }
   }
@@ -35,17 +38,21 @@ class _PageOneState extends State<PageOne> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ValueListenableBuilder<List<Post>>(
-                valueListenable: posts,
-                builder: (context, value, __) {
-                  return ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: value.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(title: Text(value[index].title));
-                    },
-                  );
+              AnimatedBuilder(
+                animation: Listenable.merge([posts, loading]),
+                builder: (context, __) {
+                  if (loading.value) {
+                    return CircularProgressIndicator();
+                  } else {
+                    return ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: posts.value.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(title: Text(posts.value[index].title));
+                      },
+                    );
+                  }
                 },
               ),
               CustomButtonWidget(
