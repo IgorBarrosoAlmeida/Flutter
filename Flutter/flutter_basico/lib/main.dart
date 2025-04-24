@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_basico/pages/page_one.dart';
+import 'package:flutter_basico/views/page_one.dart';
 
 main() {
   runApp(MyApp());
