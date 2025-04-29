@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_basico/components/login/custom_login_button_component.dart';
 import 'package:flutter_basico/controller/login_controller.dart';
+import 'package:flutter_basico/widgets/custom_textfield_widget.dart';
 
 class LoginPage extends StatelessWidget {
   final LoginController _loginController = LoginController();
@@ -24,52 +26,17 @@ class LoginPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Icon(Icons.person, size: 100),
-              TextField(
-                decoration: InputDecoration(label: Text("Login")),
+              CustomTextfieldWidget(
+                label: "login",
                 onChanged: _loginController.setLogin,
               ),
-              TextField(
-                decoration: InputDecoration(label: Text("Password")),
-                obscureText: true,
+              CustomTextfieldWidget(
+                label: "senha",
                 onChanged: _loginController.setPassword,
+                isPassword: true,
               ),
               SizedBox(height: 30),
-              // loading se estiver tentando logar
-              ValueListenableBuilder<bool>(
-                valueListenable: _loginController.loading,
-                builder: (_, loading, __) {
-                  return loading
-                      ? CircularProgressIndicator()
-                      : ElevatedButton(
-                        onPressed: () {
-                          _loginController.authentication().then((
-                            isValidLogin,
-                          ) {
-                            if (isValidLogin) {
-                              Navigator.of(
-                                context,
-                              ).pushReplacementNamed("/home");
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: const Text("Login failled")),
-                              );
-                            }
-                          });
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: WidgetStateColor.resolveWith((
-                            states,
-                          ) {
-                            return Colors.green;
-                          }),
-                        ),
-                        child: Text(
-                          "Login",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      );
-                },
-              ),
+              CustomLoginButtonComponent(loginController: _loginController),
             ],
           ),
         ),
