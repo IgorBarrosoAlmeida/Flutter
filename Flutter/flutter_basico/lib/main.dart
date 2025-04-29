@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_basico/views/page_one.dart';
+import 'package:flutter_basico/views/home_page.dart';
+import 'package:flutter_basico/views/login_page.dart';
+import 'package:flutter_basico/views/splash_page.dart';
 
 main() {
   runApp(MyApp());
@@ -25,7 +27,12 @@ class MyApp extends StatelessWidget {
           onSurface: Colors.black,
         ),
       ),
-      home: PageOne(),
+      initialRoute: '/splash',
+      routes: {
+        '/splash': (_) => const SplashPage(),
+        '/login': (_) => LoginPage(),
+        '/home': (_) => HomePage(),
+      },
     );
   }
 }
