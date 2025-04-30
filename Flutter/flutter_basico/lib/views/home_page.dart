@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basico/controller/home_controller.dart';
 import 'package:flutter_basico/models/post_model.dart';
-import 'package:flutter_basico/repositories/home_repository_mock.dart';
+import 'package:flutter_basico/repositories/home_repository_dio.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,7 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final HomeController _homeController = HomeController(HomeRepositoryMock());
+  final HomeController _homeController = HomeController(HomeRepositoryDio());
 
   @override
   void initState() {
@@ -22,18 +22,33 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ValueListenableBuilder<List<PostModel>>(
-        valueListenable: _homeController.posts,
-        builder: (_, posts, __) {
-          return ListView.builder(
-            itemCount: posts.length,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (_, index) {
-              return ListTile(title: Text(posts[index].title));
-            },
-          );
-        },
+      appBar: AppBar(
+        title: Text(
+          "Posts",
+          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+        ),
+        centerTitle: true,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+      ),
+      body: SingleChildScrollView(
+        child: ValueListenableBuilder<List<PostModel>>(
+          valueListenable: _homeController.posts,
+          builder: (_, posts, __) {
+            return ListView.separated(
+              itemCount: posts.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (_, index) {
+                return ListTile(
+                  title: Text(posts[index].title),
+                  leading: Text(posts[index].id.toString()),
+                  trailing: Icon(Icons.arrow_forward),
+                );
+              },
+              separatorBuilder: (_, __) => const Divider(),
+            );
+          },
+        ),
       ),
     );
   }
