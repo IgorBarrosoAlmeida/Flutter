@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_basico/services/preference_service.dart';
 
 class LoginController {
   String? _login;
@@ -12,6 +13,11 @@ class LoginController {
     loading.value = true;
     await Future.delayed(Duration(seconds: 1));
     loading.value = false;
-    return _login == "admin" && _password == "1234";
+
+    if (_login == "admin" && _password == "1234") {
+      PreferenceService.save(_login!);
+      return true;
+    }
+    return false;
   }
 }

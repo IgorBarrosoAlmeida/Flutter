@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_basico/services/preference_service.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -11,9 +12,15 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(
-      Duration(seconds: 3),
-    ).then((_) => Navigator.of(context).pushReplacementNamed('/login'));
+
+    Future.wait([
+      PreferenceService.isAuth(),
+      Future.delayed(Duration(seconds: 3)),
+    ]).then((list) {
+      list[0]
+          ? Navigator.of(context).pushReplacementNamed('/home')
+          : Navigator.of(context).pushReplacementNamed('/login');
+    });
   }
 
   @override
