@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_basico/controller/home_controller.dart';
 import 'package:flutter_basico/models/post_model.dart';
 import 'package:flutter_basico/repositories/home_repository_dio.dart';
+import 'package:flutter_basico/widgets/custom_app_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,14 +23,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Posts",
-          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
-        ),
-        centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.primary,
-      ),
+      appBar: CustomAppBar(title: "Home"),
       body: SingleChildScrollView(
         child: ValueListenableBuilder<List<PostModel>>(
           valueListenable: _homeController.posts,
@@ -43,6 +37,11 @@ class _HomePageState extends State<HomePage> {
                   title: Text(posts[index].title),
                   leading: Text(posts[index].id.toString()),
                   trailing: Icon(Icons.arrow_forward),
+                  onTap: () {
+                    Navigator.of(
+                      context,
+                    ).pushNamed("/details", arguments: posts[index]);
+                  },
                 );
               },
               separatorBuilder: (_, __) => const Divider(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_basico/views/details_page.dart';
 import 'package:flutter_basico/views/home_page.dart';
 import 'package:flutter_basico/views/login_page.dart';
 import 'package:flutter_basico/views/splash_page.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         '/splash': (_) => const SplashPage(),
         '/login': (_) => LoginPage(),
         '/home': (_) => HomePage(),
+        '/details': (_) => DetailsPage(),
       },
     );
   }
