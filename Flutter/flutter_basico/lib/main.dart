@@ -15,14 +15,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme(
           brightness: Brightness.light,
-          primary: Colors.green,
+          primary: Colors.black54,
           onPrimary: Colors.white,
-          secondary: Colors.blue,
+          secondary: Colors.black54,
           onSecondary: Colors.white,
           error: Colors.red,
           onError: Colors.white,
-          surface: Colors.white,
-          onSurface: Colors.black,
+          surface: Colors.black87,
+          onSurface: Colors.white70,
         ),
       ),
       initialRoute: '/home',
