@@ -41,6 +41,7 @@ class _HomePageState extends State<HomePage> {
                         color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
+                    TextField(onChanged: _movieController.searchMovies),
                     SizedBox(height: 20),
                     ListView.separated(
                       physics: const NeverScrollableScrollPhysics(),
