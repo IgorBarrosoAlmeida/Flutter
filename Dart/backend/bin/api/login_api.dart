@@ -9,6 +9,6 @@ class LoginApi {
       return Response(200, body: "API login");
     });
 
-    return router;
+    return router.call;
   }
 }

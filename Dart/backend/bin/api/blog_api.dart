@@ -10,6 +10,6 @@ class BlogApi {
       (Request req) => Response(200, body: "choveu hoje"),
     );
 
-    return router;
+    return router.call;
   }
 }

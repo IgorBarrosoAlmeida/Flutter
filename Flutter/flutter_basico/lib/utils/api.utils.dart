@@ -1,4 +1,4 @@
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
 class API {
   static String REQUEST_IMG(String img) =>
