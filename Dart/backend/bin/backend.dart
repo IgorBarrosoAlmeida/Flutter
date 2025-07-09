@@ -1,20 +1,23 @@
 import 'package:shelf/shelf.dart';
 
 import 'infra/custom_server.dart';
-import 'api/login_api.dart';
-import 'api/blog_api.dart';
+import 'apis/login_api.dart';
+import 'apis/blog_api.dart';
 import 'utils/custom_env.dart';
+import 'services/noticia_service.dart';
+import 'infra/middleware_interception.dart';
 
 void main() async {
   // adiciona multiplos handlers
   var cascadeHandler = Cascade()
       .add(LoginApi().handler)
-      .add(BlogApi().handler)
+      .add(BlogApi(NoticiaService()).handler)
       .handler;
 
   // fornece um log das chamadas a API
   var handlers = Pipeline()
       .addMiddleware(logRequests())
+      .addMiddleware(MiddlewareInterception().middleware)
       .addHandler(cascadeHandler);
 
   await CustomServer().initialize(

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-import 'parser_extension.dart';
+import 'string_extension.dart';
 
 class CustomEnv {
   static Map<String, String> _envContent = {};
