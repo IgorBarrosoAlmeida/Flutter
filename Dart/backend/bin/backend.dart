@@ -6,18 +6,29 @@ import 'apis/blog_api.dart';
 import 'utils/custom_env.dart';
 import 'services/noticia_service.dart';
 import 'infra/middleware_interception.dart';
+import 'infra/security/security_service_imp.dart';
+import 'infra/security/security_service.dart';
 
 void main() async {
+  SecurityService _securityService = SecurityServiceImp();
   // adiciona multiplos handlers
   var cascadeHandler = Cascade()
-      .add(LoginApi().handler)
-      .add(BlogApi(NoticiaService()).handler)
+      .add(LoginApi(_securityService).getHandler())
+      .add(
+        BlogApi(NoticiaService()).getHandler(
+          middlewares: [
+            _securityService.authorization,
+            _securityService.verityJwt,
+          ],
+        ),
+      )
       .handler;
 
-  // fornece um log das chamadas a API
   var handlers = Pipeline()
       .addMiddleware(logRequests())
       .addMiddleware(MiddlewareInterception().middleware)
+      //.addMiddleware(_securityService.authorization) --> eram globais
+      //.addMiddleware(_securityService.verityJwt)
       .addHandler(cascadeHandler);
 
   await CustomServer().initialize(
