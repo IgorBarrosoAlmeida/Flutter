@@ -51,7 +51,7 @@ class BlogApi extends Api {
     });
 
     return createHandler(
-      router: router,
+      router: router.call,
       needAuth: needAuth,
       middlewares: middlewares,
     );
