@@ -1,4 +1,4 @@
-class UsuarioModel {
+class UserModel {
   int? id;
   String? name;
   String? email;
@@ -7,7 +7,7 @@ class UsuarioModel {
   DateTime? dtCreated;
   DateTime? dtUpdate;
 
-  UsuarioModel.create(
+  UserModel.create(
     this.id,
     this.name,
     this.email,
@@ -16,15 +16,15 @@ class UsuarioModel {
     this.dtUpdate,
   );
 
-  UsuarioModel();
+  UserModel();
 
   @override
   String toString() {
-    return 'UsuarioModel(id: $id, name: $name, email: $email, isActive: $isActive, dtCreated: $dtCreated, dtUpdate: $dtUpdate)';
+    return 'UserModel(id: $id, name: $name, email: $email, isActive: $isActive, dtCreated: $dtCreated, dtUpdate: $dtUpdate)';
   }
 
-  factory UsuarioModel.fromMap(Map<String, dynamic> map) {
-    return UsuarioModel.create(
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel.create(
       map['id'] ?? 0,
       map['nome'] ?? "",
       map['email'] ?? "",
@@ -32,5 +32,12 @@ class UsuarioModel {
       map['dt_criacao'],
       map['dt_autalizacao'],
     );
+  }
+
+  factory UserModel.fromRequest(Map map) {
+    return UserModel()
+      ..name = map['nome']
+      ..email = map['email']
+      ..password = map['password'];
   }
 }

@@ -8,6 +8,9 @@ import '../../models/noticia_model.dart';
 import '../../services/generic_service.dart';
 import '../database/mysql_db_configuration.dart';
 import '../database/db_configuration.dart';
+import '../../dao/user_dao.dart';
+import '../../services/user_service.dart';
+import '../../apis/user_api.dart';
 
 class Injects {
   static DependencyInjector initialize() {
@@ -22,6 +25,10 @@ class Injects {
     di.register<GenericService<NoticiaModel>>(() => NoticiaService());
 
     di.register<BlogApi>(() => BlogApi(di<GenericService<NoticiaModel>>()));
+
+    di.register<UserDAO>(() => UserDAO(di<DbConfiguration>()));
+    di.register<UserService>(() => UserService(di<UserDAO>()));
+    di.register<UserApi>(() => UserApi(di<UserService>()));
 
     return di;
   }
