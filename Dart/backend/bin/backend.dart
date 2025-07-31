@@ -2,7 +2,7 @@ import 'package:shelf/shelf.dart';
 
 import 'infra/custom_server.dart';
 import 'apis/login_api.dart';
-import 'apis/blog_api.dart';
+import 'apis/noticias_api.dart';
 import 'utils/custom_env.dart';
 import 'infra/middleware_interception.dart';
 import 'infra/dependency_injector/injects.dart';
@@ -14,7 +14,7 @@ void main() async {
   // adiciona multiplos handlers
   var cascadeHandler = Cascade()
       .add(di<LoginApi>().getHandler())
-      .add(di<BlogApi>().getHandler(needAuth: true))
+      .add(di<NoticiasApi>().getHandler(needAuth: true))
       .add(di<UserApi>().getHandler(needAuth: true))
       .handler;
 

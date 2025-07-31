@@ -1,40 +1,37 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 class NoticiaModel {
-  final int? id;
-  final String titulo;
-  final String descricao;
-  final String img;
-  final DateTime dataPublicacao;
-  final DateTime? dataEdicao;
+  int? id;
+  String? title;
+  String? description;
+  DateTime? dtCreated;
+  DateTime? dtUpdated;
+  int? userId;
 
-  NoticiaModel(
-    this.id,
-    this.titulo,
-    this.descricao,
-    this.img,
-    this.dataPublicacao,
-    this.dataEdicao,
-  );
+  NoticiaModel();
 
   @override
   String toString() {
-    return 'NoticiaModel(id: $id, titulo: $titulo, descricao: $descricao, img: $img, dataPublicacao: $dataPublicacao, dataEdicao: $dataEdicao)';
+    return 'NoticiaModel(id: $id, title: $title, description: $description, dtCreated: $dtCreated, dtUpdated: $dtUpdated, userId: $userId)';
+  }
+
+  factory NoticiaModel.fromMap(Map<String, dynamic> map) {
+    return NoticiaModel()
+      ..id = map['id']?.toInt()
+      ..title = map['titulo']
+      ..description = map['descricao'].toString()
+      ..dtCreated = map['dt_criacao']
+      ..dtUpdated = map['dt_autalizacao']
+      ..userId = map['id_usuario']?.toInt();
   }
 
   Map toJson() {
-    return {"id": id, "titulo": titulo, "descricao": descricao, "img": img};
+    return {'id': id, 'title': title, 'description': description};
   }
 
-  factory NoticiaModel.fromJson(Map map) {
-    return NoticiaModel(
-      map["id"] ?? "",
-      map["titulo"],
-      map["descricao"],
-      map["img"],
-      DateTime.fromMicrosecondsSinceEpoch(map["dataPublicacao"]),
-      map["dataEdicao"] != null
-          ? DateTime.fromMicrosecondsSinceEpoch(map["dataEdicao"])
-          : null,
-    );
+  factory NoticiaModel.fromRequest(Map map) {
+    return NoticiaModel()
+      ..id = map['id']
+      ..title = map['title']
+      ..description = map['description']
+      ..userId = map['userId']?.toInt();
   }
 }

@@ -9,7 +9,7 @@ class UserDAO implements DAO<UserModel> {
 
   @override
   Future<bool> create(UserModel value) async {
-    var queryResult = await _execQuery(
+    var queryResult = await _dbConfiguration.execQuery(
       'INSERT INTO usuarios (nome, email, password) VALUES (?, ?, ?)',
       [value.name, value.email, value.password],
     );
@@ -18,15 +18,16 @@ class UserDAO implements DAO<UserModel> {
 
   @override
   Future<bool> delete(int id) async {
-    var queryResult = await _execQuery('DELETE FROM usuarios WHERE id = ?', [
-      id,
-    ]);
+    var queryResult = await _dbConfiguration.execQuery(
+      'DELETE FROM usuarios WHERE id = ?',
+      [id],
+    );
     return queryResult.affectedRows > 0;
   }
 
   @override
   Future<List<UserModel>> readAll() async {
-    var query = await _execQuery('SELECT * FROM usuarios');
+    var query = await _dbConfiguration.execQuery('SELECT * FROM usuarios');
 
     List<UserModel> result = [];
     for (var q in query) {
@@ -38,9 +39,10 @@ class UserDAO implements DAO<UserModel> {
 
   @override
   Future<UserModel?> readOne(int id) async {
-    var queryResult = await _execQuery('SELECT * FROM usuarios WHERE id = ?', [
-      id,
-    ]);
+    var queryResult = await _dbConfiguration.execQuery(
+      'SELECT * FROM usuarios WHERE id = ?',
+      [id],
+    );
 
     return queryResult.affectedRows > 0
         ? UserModel.fromMap(queryResult.first.fields)
@@ -49,7 +51,7 @@ class UserDAO implements DAO<UserModel> {
 
   @override
   Future<bool> update(UserModel value) async {
-    var queryResult = await _execQuery(
+    var queryResult = await _dbConfiguration.execQuery(
       'UPDATE usuarios SET nome = ?, password = ? WHERE id = ?',
       [value.name, value.password, value.id],
     );
@@ -57,17 +59,12 @@ class UserDAO implements DAO<UserModel> {
   }
 
   Future<UserModel?> readByEmail(String email) async {
-    var queryResult = await _execQuery(
+    var queryResult = await _dbConfiguration.execQuery(
       'SELECT * FROM usuarios WHERE email = ?',
       [email],
     );
     return queryResult.length == 0
         ? null
         : UserModel.fromEmail(queryResult.first.fields);
-  }
-
-  _execQuery(String sql, [List? params]) async {
-    var conn = await _dbConfiguration.connection;
-    return await conn.query(sql, params);
   }
 }
