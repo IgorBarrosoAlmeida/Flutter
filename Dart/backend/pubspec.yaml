@@ -8,8 +8,9 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
-  dart_jsonwebtoken: ^3.2.0
+  dart_jsonwebtoken: ^2.4.1
   mysql1: ^0.20.0
+  password_dart: ^2.0.1
   shelf: ^1.4.2
   shelf_router: ^1.1.4
   # path: ^1.8.0

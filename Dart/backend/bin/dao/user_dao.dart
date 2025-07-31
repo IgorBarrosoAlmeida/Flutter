@@ -17,6 +17,14 @@ class UserDAO implements DAO<UserModel> {
   }
 
   @override
+  Future<bool> delete(int id) async {
+    var queryResult = await _execQuery('DELETE FROM usuarios WHERE id = ?', [
+      id,
+    ]);
+    return queryResult.affectedRows > 0;
+  }
+
+  @override
   Future<List<UserModel>> readAll() async {
     var query = await _execQuery('SELECT * FROM usuarios');
 
@@ -48,12 +56,14 @@ class UserDAO implements DAO<UserModel> {
     return queryResult.affectedRows > 0;
   }
 
-  @override
-  Future<bool> delete(int id) async {
-    var queryResult = await _execQuery('DELETE FROM usuarios WHERE id = ?', [
-      id,
-    ]);
-    return queryResult.affectedRows > 0;
+  Future<UserModel?> readByEmail(String email) async {
+    var queryResult = await _execQuery(
+      'SELECT * FROM usuarios WHERE email = ?',
+      [email],
+    );
+    return queryResult.length == 0
+        ? null
+        : UserModel.fromEmail(queryResult.first.fields);
   }
 
   _execQuery(String sql, [List? params]) async {
